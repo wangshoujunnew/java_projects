@@ -1,0 +1,42 @@
+server:
+  port: 10086 # 服务端口, eruka自己也是一个微服务
+spring:
+  application:
+    name: eurekaserver # eureka的服务名称
+eureka:
+  client:
+    # ---- #由于自己就是服务器，不需要注册到自己
+    #registerWithEureka: false
+    ##由于自己就是服务器，不需要注册到自己
+    #fetchRegistry: false
+    fetch-registry: false
+    register-with-eureka: false
+    # ----
+    #    千万不要访问http://localhost:10086/eureka/,会报错404错误，这个地址是用于客户端向服务端注册用的）
+    #    要访问http://localhost:10086
+    service-url:  # eureka的注册地址信息
+      defaultZone: http://127.0.0.1:10086/eureka
+  instance:
+    # 服务名称，客户端通过此名称来调用服务
+    appname: eureka-server
+    # 服务实例的主机名称
+    hostname: eureka-host
+    prefer-ip-address: true # 是否显示主机的ip
+    #      instanceId: 127.0.0.1:10086
+
+    #  增加 Eureka Client 的心跳检测间隔和连接超时时间
+
+    # 即服务提供方向 Eureka Server 发送心跳的时间间隔，默认为 30 秒。
+    lease-renewal-interval-in-seconds: 30
+    # 即 Eureka Server 注册表中实例信息过期时间，默认为 90 秒
+    lease-expiration-duration-in-seconds: 90
+    # 表示客户端健康检查的 URL 地址，默认为 /health
+    health-check-url: /actuator/health
+  # 表示是否启用客户端健康检查功能，默认为 true
+  healthcheck.enabled: true
+
+  # 调整 Eureka Server 的配置，增加 Threshold 设置
+  # 如果 Eureka Server 在最近一分钟内收到的心跳续约数低于预期的 85%，那么 Eureka Server 将认为这个实例已经不可用，并从注册表中删除。
+  server:
+    renewal-percent-threshold: 0.85
+    enableSelfPreservation: false # 关闭保护机制，使服务正常退出，方便开发与调试

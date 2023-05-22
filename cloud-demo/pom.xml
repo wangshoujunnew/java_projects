@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cn.itcast.demo</groupId>
+    <artifactId>cloud-demo</artifactId>
+    <version>1.0</version>
+    <modules>
+        <module>user-service</module>
+        <module>order-service</module>
+        <module>eruka-server</module>
+    </modules>
+
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.9.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
+        <mysql.version>5.1.47</mysql.version>
+        <mybatis.version>2.1.1</mybatis.version>
+    </properties>
+
+    <dependencyManagement>
+        <!--        在pom.xml文件中添加的jar包会根据项目需要而有所不同，以下是一些常用的SpringBoot依赖项：-->
+
+        <!--        spring-boot-starter：包含Spring Boot核心依赖项，如自动配置、日志记录、属性文件解析等；-->
+        <!--        spring-boot-starter-web：用于构建Web应用程序，包括Spring MVC和Tomcat嵌入式容器；-->
+        <!--        spring-boot-starter-data-jpa：用于访问数据库的Java持久化API（JPA）；-->
+        <!--        spring-boot-starter-test：用于编写测试代码的依赖项，包括JUnit、Mockito、Hamcrest等；-->
+        <!--        spring-boot-devtools：用于自动重启和热交换代码的开发者工具；-->
+        <!--        spring-boot-starter-security：用于实现应用程序安全功能的依赖项；-->
+        <!--        spring-boot-actuator：用于监视和管理Spring Boot应用程序的可扩展端点。-->
+        <dependencies>
+            <!-- springCloud -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- mysql驱动 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <!--mybatis-->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+</project>

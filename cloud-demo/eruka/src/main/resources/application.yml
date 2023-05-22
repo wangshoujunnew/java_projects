@@ -1,0 +1,16 @@
+server:
+  port: 10086 # 服务端口, eruka自己也是一个微服务
+spring:
+  application:
+    name: eurekaserver # eureka的服务名称
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    #    千万不要访问http://localhost:10086/eureka/,会报错404错误，这个地址是用于客户端向服务端注册用的）
+    #    要访问http://localhost:10086
+    service-url:  # eureka的注册地址信息
+      defaultZone: http://127.0.0.1:10086/eureka
+#    instance:
+#      prefer-ip-address: true
+#      instanceId: 127.0.0.1:10086

@@ -1,0 +1,40 @@
+server:
+  port: 10010
+logging:
+  level:
+    cn.itcast: debug
+  pattern:
+    dateformat: MM-dd HH:mm:ss:SSS
+
+spring:
+  application:
+    name: gateway
+  cloud:
+ #    nacos:
+ #      server-addr: nacos:8848 # nacos地址
+     gateway:
+       enabled: true # 启动网关自动配置功能
+       discovery:
+         locator:
+           enabled: true # 启用服务注册发现
+ #      通过网关访问到user-service和order-service
+       routes:
+         - id: userserver # 路由标示，必须唯一
+           uri: lb://userserver # 将userserver服务路由到目标地址, lb为负载均衡的意思
+           predicates: # 路由断言，判断请求是否符合规则
+             - Path=/user/** # 路径断言，判断路径是否是以/user开头，如果是则符合
+         - id: orderserver
+           uri: lb://orderserver
+           predicates:
+             - Path=/order/**
+#       default-filters:
+#         - AddRequestHeader=Truth,Itcast is freaking awesome!
+
+
+# eureka:
+#   client:
+#     service-url:  # eureka的注册地址信息
+#       defaultZone: http://127.0.0.1:10086/eureka
+nacos:
+  discovery:
+    server-addr: 127.0.0.1:8848

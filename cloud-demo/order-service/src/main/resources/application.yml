@@ -1,0 +1,49 @@
+server:
+  port: 8080
+
+
+spring:
+  application:
+    name: orderserver # 注册到eruka的名称
+  datasource:
+    url: jdbc:mysql://124.221.33.10:3306/cloud_order?useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+mybatis:
+  type-aliases-package: cn.itcast.user.pojo
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  level:
+    cn.itcast: debug
+  pattern:
+    dateformat: MM-dd HH:mm:ss:SSS
+
+
+#eureka:
+#  client:
+#    service-url:  # eureka的注册地址信息
+#      defaultZone: http://127.0.0.1:10086/eureka
+#
+#  instance:
+#    # 服务名称，客户端通过此名称来调用服务
+#    appname: order-server
+
+# https://blog.csdn.net/mengmeng2222222/article/details/116482707
+nacos:
+  discovery:
+    server-addr: 127.0.0.1:8848
+
+
+userserver: # 给某个微服务配置负载均衡规则，这里是userserver服务为例
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule # 负载均衡规则
+
+
+ribbon:
+  eager-load:
+    enabled: true # 开启饥饿加载, Ribbon默认是采用懒加载，即第一次访问时才会去创建LoadBalanceClient，请求时间会很长
+    clients:
+      - userserver # 指定饥饿加载的服务名称
+#      - xxxxservice # 如果需要指定多个，需要这么写

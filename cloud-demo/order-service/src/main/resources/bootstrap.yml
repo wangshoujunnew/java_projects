@@ -1,0 +1,15 @@
+# 热配置 https://www.cnblogs.com/gaopengpy/p/14628360.html
+# https://blog.csdn.net/qq_39788123/article/details/123357278
+#bootstrap.yml
+spring:
+  application:
+    name: orderserver
+  profiles:
+    active: dev #开发环境，这里是dev
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+        #没有使用命名空间的话，可以不用配置，默认为public
+#        namespace: 5bfce986-3911-4699-a972-9e664841821b
